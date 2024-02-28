@@ -1,0 +1,96 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		#remember-forgot{
+			display: flex;
+			justify-content: space-between;
+		}
+		#register{
+			text-align: center;
+			margin-top: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<h2>Login</h2>
+		<form id="form" action="./todolist/todo.html">
+			<div id="input-group">
+				<label for="username">Username:</label>
+				<input type="text" name="username" id="username">
+				<div id="error"></div>
+			</div>
+			
+			<div id="input-group">
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password">
+				<div id ="error"></div>
+			</div>
+			<div id="remember-forgot">
+				<div id="remember"><input type="checkbox"><label>Remember me</label></div>
+				<p><a href="">forgot password?</a></p>
+			</div>
+			<button id="btn" type="submit">Login</button>
+			<p id="register">Didn't have an account?<a href="index.html">Register</a></p>
+		</form>
+	</div>
+	<script>
+		let form=document.getElementById('form')
+let username=document.getElementById("username")
+let password=document.getElementById("password")
+let user={user1:"password1",user2:"password2",user3:"password3",user4:"password4",user5:"password5"}
+form.addEventListener("submit",(e)=>{
+	
+	if(!formValidation()){
+		e.preventDefault()
+	}
+})
+formValidation=()=>{
+	usernameVal=username.value.trim()
+	passwordVal=password.value.trim()
+	let success=true
+	if(usernameVal===""){
+		success=false
+		setError(username,"username is required")
+	}
+	// else if(!user[usernameVal]){
+	// 	success=false
+	// 	setError(username,"username is invalid")
+	// }
+	else{
+		setSuccess(username)
+	}
+
+	if(passwordVal===""){
+		success=false
+		setError(password,"password is required")
+	}
+	// else if(passwordVal!==user[usernameVal]){
+	// 	success=false
+	// 	setError(password,"password is invalid")
+	// }
+	else{
+		setSuccess(password)
+	}
+	
+	return success
+}
+setError=(element,message)=>{
+	let inputContent=element.parentElement
+	let err=inputContent.querySelector("#error")
+	err.innerText=message
+	inputContent.classList.add("error")
+	inputContent.classList.remove("success")
+}
+setSuccess=(element)=>{
+	let inputContent=element.parentElement
+	let err=inputContent.querySelector("#error")
+	err.innerText=""
+	inputContent.classList.add("success")
+	inputContent.classList.remove("error")
+}
+
+	</script>
+</body>
+</html>

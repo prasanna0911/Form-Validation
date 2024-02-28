@@ -1,0 +1,55 @@
+<html>
+<head>
+	<link rel="stylesheet" href="styleTodo.css">
+</head>
+<body>
+	<div id="container">
+		<div class="converter">
+			<h2>To Do List</h2>
+			<div class="input-box">
+				<input type="text" name="" placeholder="Enter a text" id="input">
+				<button id="btn">ADD</button>
+			</div>
+			<div id="result"></div>
+		</div>
+	</div>
+	<script>
+		let input=document.getElementById('input')
+		let btn=document.getElementById("btn")
+		let result=document.getElementById('result')
+		let todos=[]
+		window.onload=()=>{
+			todos=JSON.parse(localStorage.getItem("todos")) || []
+			todos.forEach(todo=>addTodo(todo))
+		}
+		btn.addEventListener("click",()=>{
+			todos.push(input.value)
+			localStorage.setItem("todos",JSON.stringify(todos))
+			addTodo(input.value)
+			input.value=""
+		})
+		addTodo=(todo)=>{
+			let para=document.createElement("p")
+			para.innerText=todo
+			result.appendChild(para)
+			para.addEventListener("click",()=>{
+				para.style.textDecoration="line-through"
+				remove(todo)
+			})
+			para.addEventListener("dblclick",()=>{
+				result.removeChild(para)
+				remove(todo)
+			})
+		}
+		remove=(todo)=>{
+			let index=todos.indexOf(todo)
+			if (index>-1){
+				todos.splice(index,1)
+			}
+			localStorage.setItem("todos",JSON.stringify(todos))
+		}
+		//#B3A0FF,#4A566E
+//#05345A, #8EF6EB
+	</script>
+</body>
+</html>
